@@ -459,50 +459,6 @@ public class ChessSwingOpening {
         return nextButton;
     }
     
-private JButton createCustomButton2(ImageIcon icon) {
-    JButton button = new JButton(icon);
-    Dimension originalSize = new Dimension(170, 50); // Original size of the button
-    button.setPreferredSize(originalSize);
-    button.setBorder(new EmptyBorder(30, 20, 30, 20)); // Increase the button's border to increase its size
-    button.setContentAreaFilled(false); // Remove content area fill
-    
-    int targetWidth = (int) (originalSize.width * 1.1);
-    int targetHeight = (int) (originalSize.height * 1.1);
-
-    Timer timer = new Timer(20, null);
-    timer.addActionListener(new ActionListener() {
-        int currentWidth = originalSize.width;
-        int currentHeight = originalSize.height;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int step = 2; // Step size for animation
-            if (currentWidth < targetWidth && currentHeight < targetHeight) {
-                currentWidth += step;
-                currentHeight += step;
-                button.setPreferredSize(new Dimension(currentWidth, currentHeight));
-            } else {
-                ((Timer) e.getSource()).stop();
-            }
-        }
-    });
-
-    button.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            timer.start();
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            button.setPreferredSize(originalSize); // Restore original size
-            timer.stop();
-        }
-    });
-
-    return button;
-}
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
