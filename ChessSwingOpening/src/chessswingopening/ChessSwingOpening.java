@@ -120,10 +120,91 @@ public class ChessSwingOpening {
         });
 
         computerButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JFrame frame = new JFrame("Color Selection");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(300, 150);
+        frame.setLocationRelativeTo(null); // Center the frame on screen
+        frame.setResizable(false);
+
+        // Load the chess wallpaper image
+        ImageIcon icon = new ImageIcon(getClass().getResource("/resources/Chess Wallpaper2.png"));
+        Image scaledImage = icon.getImage().getScaledInstance(300, 150, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel backgroundLabel = new JLabel(scaledIcon);
+
+        // Create a JPanel with a null layout to place components freely
+        JPanel panel = new JPanel(null);
+        panel.setOpaque(false); // Make the panel transparent
+
+        // Create radio buttons
+        JRadioButton blackButton = new JRadioButton("Black");
+        JRadioButton whiteButton = new JRadioButton("White");
+
+        // Set the radio buttons to be transparent
+        blackButton.setOpaque(false);
+        whiteButton.setOpaque(false);
+
+        // Button group for radio buttons
+        ButtonGroup group = new ButtonGroup();
+        group.add(blackButton);
+        group.add(whiteButton);
+
+        // Set bounds for radio buttons
+        blackButton.setBounds(50, 20, 100, 30);
+        whiteButton.setBounds(50, 50, 100, 30);
+
+        // Add radio buttons to the panel
+        panel.add(blackButton);
+        panel.add(whiteButton);
+
+        // Custom button with the Confirm image
+        JButton confirmButton = new JButton(new ImageIcon(getClass().getResource("/resources/Confirm.png"))) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(((ImageIcon) getIcon()).getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        confirmButton.setContentAreaFilled(false);
+        confirmButton.setBorderPainted(false);
+        confirmButton.setBounds(50, 80, 100, 30);
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle computer button click
+                if (blackButton.isSelected()) {
+                    // Set color to 1 for black
+                    int color = 1;
+                    System.out.println("Color selected: Black");
+                    // Close the frame after selection
+                    frame.dispose();
+                } else if (whiteButton.isSelected()) {
+                    // Set color to 0 for white
+                    int color = 0;
+                    System.out.println("Color selected: White");
+                    // Close the frame after selection
+                    frame.dispose();
+                } else {
+                    // No color selected
+                    System.out.println("Please select a color.");
+                }
             }
         });
+        panel.add(confirmButton);
+
+        // Add the panel to the background label
+        backgroundLabel.setLayout(new BorderLayout());
+        backgroundLabel.add(panel);
+
+        // Add background label to the frame
+        frame.add(backgroundLabel);
+
+        frame.setVisible(true);
+    }
+});
+
+     
 
         // Create a JPanel to hold the buttons
         JPanel buttonPanel = new JPanel();
